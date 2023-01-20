@@ -4,17 +4,16 @@
  * @description Allows setting a channel to be chosen when you start
  * @version 1.0.0
  * @donate https://paypal.me/michigan224
+ * @source https://github.com/michigan224/SetStartupPage
  */
 
 module.exports = meta => {
-
-    // const mySettings = { serverName: "Server Name", folderName: "Folder Name (optional)" };
-    const myDefaults = { serverName: "", folderName: "", delay: 500 };
+    const defaultSettings = { serverName: "", folderName: "", delay: 500 };
 
     function handleInputChange(ev) {
         const inputName = ev.target.id;
         const value = ev.target.value;
-        const mySettings = Object.assign({}, myDefaults, BdApi.loadData("setStartupPage", "settings"));
+        const mySettings = Object.assign({}, defaultSettings, BdApi.loadData("setStartupPage", "settings"));
         const values = {
             ...mySettings,
             [inputName]: value
@@ -23,7 +22,7 @@ module.exports = meta => {
     }
 
     function buildSettings() {
-        const mySettings = Object.assign({}, myDefaults, BdApi.loadData("setStartupPage", "settings"));
+        const mySettings = Object.assign({}, defaultSettings, BdApi.loadData("setStartupPage", "settings"));
         const setting = Object.assign(document.createElement("div"), { className: "setting" });
 
         // Build Server Name Input
@@ -96,7 +95,7 @@ module.exports = meta => {
 
     return {
         start: async () => {
-            const mySettings = Object.assign({}, myDefaults, BdApi.loadData("setStartupPage", "settings"));
+            const mySettings = Object.assign({}, defaultSettings, BdApi.loadData("setStartupPage", "settings"));
             if (mySettings.serverName === "") return;
 
             const targetServer = mySettings.serverName;
